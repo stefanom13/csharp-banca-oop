@@ -38,25 +38,27 @@ banca.clienti.Add(new Cliente("Michele", "Dantino", "MCD20FSFS1845", 340000));
 banca.clienti.Add(new Cliente("Orazio", "Bertolami", "EI76LDVLO57325", 35000));
 
 
+// Aggiungere un nuovo cliente
+
 Cliente cliente = Banca.CreaCliente();
 
 banca.AggiungiNuovoCliente(cliente);
 
-//Scorri lista clienti
+// lista clienti
 
 banca.ListaClienti();
 
+//seleziona un cliente dalla lista 
+Console.Write("Inserire indiceCliente:");
+int indCliente = Int32.Parse(Console.ReadLine());
+
+Cliente clienteCercato = banca.GetCliente(indCliente);
+
+Console.WriteLine(clienteCercato.GetInfoCliente());
 
 
 
-// Aggiungere un nuovo cliente
 
-Cliente userCliente = Banca.CreaCliente();
 
-banca.AggiungiNuovoCliente(cliente);
-
-//Scorri lista clienti
-
-banca.ListaClienti();
 
 
