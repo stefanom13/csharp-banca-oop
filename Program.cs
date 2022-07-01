@@ -25,8 +25,36 @@
 //sapere, dato il codice fiscale di un cliente, l’ammontare totale dei prestiti concessi.
 //sapere, dato il codice fiscale di un cliente, quante rate rimangono da pagare alla data odierna.
 
-//Per i clienti e per i prestiti si vuole stampare un prospetto riassuntivo con tutti i dati che
-//li caratterizzano in un formato di tipo stringa a piacere.
-
+//Per i clienti e per i prestiti si vuole stampare un prospetto riassuntivo con tutti i dati che li caratterizzano in un formato di tipo stringa a piacere.
 //Bonus:
 //visualizzare per ogni cliente, la situazione dei suoi prestiti in formato tabellare.
+using csharp_banca_oop;
+
+Banca banca = new Banca("Credem");
+
+//  popoliamo lista clienti
+
+banca.clienti.Add(new Cliente("Pino", "La Lavatrice", "PNG20FSFS1990", 20000));
+banca.clienti.Add(new Cliente("Carlo", "Santoro", "FI55LAPPO12345", 35000));
+
+banca.ListaClienti();
+
+
+//seleziona un cliente dalla lista 
+Console.Write("Inserire indiceCliente:");
+int indexCliente = Int32.Parse(Console.ReadLine());
+
+Cliente clienteCercato = banca.GetCliente(indexCliente);
+
+Console.WriteLine(clienteCercato.GetInformazioniCliente());
+
+// Modificare un cliente
+
+
+clienteCercato = banca.ModificaInformazioniCliente(clienteCercato);
+
+
+
+
+Console.WriteLine("Rivedo Lista clienti per vedere l'effettiva modifica");
+banca.ListaClienti();
