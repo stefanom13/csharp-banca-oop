@@ -6,7 +6,19 @@ using System.Threading.Tasks;
 
 namespace csharp_banca_oop
 {
-    internal class Banca
+    public class Banca
     {
+
+        List<Cliente> clienti = new List<Cliente>();
+
+        List<Prestito> prestiti = new List<Prestito>();
+
+        public Banca(string nome)
+        {
+            this.Nome = nome;
+        }
+
+        public string Nome { get; private set; }
+
     }
 }
