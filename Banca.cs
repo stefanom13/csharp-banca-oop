@@ -103,7 +103,48 @@ namespace csharp_banca_oop
             return clienteDaModificare;
         }
         //***** fine metodi 'istanza cliente *****
+        //***** metodi istanza prestito *****
+        public Prestito CreaPrestito()
+        {
+            Console.WriteLine("\n*** Crea un Prestito ***\n");
 
-        
+
+            Console.Write("\nInserire l'indiceCliente:");
+            int indCliente = Int32.Parse(Console.ReadLine());
+            Cliente clienteRichiedente = this.GetCliente(indCliente);
+
+            Console.Write("Inserire l'ammontare del prestito: ");
+            int ammontarePrestito = Int32.Parse(Console.ReadLine());
+
+            Console.Write("Inserire le rate del prestito: ");
+            int rataPrestito = Int32.Parse(Console.ReadLine());
+
+
+            Console.WriteLine("\n\n*** Data inizio prestito ***\n");
+
+            string dataInizio = DateTime.Today.ToShortDateString();
+
+            Console.WriteLine(dataInizio);
+
+            Console.WriteLine("*** Data fine prestito ***\n\n");
+
+            Console.Write("Inserire il giorno: ");
+            string fineGiorno = Console.ReadLine();
+
+            Console.Write("Inserire il mese: ");
+            string fineMese = Console.ReadLine();
+
+            Console.Write("Inserire l'anno: ");
+            string fineAnno = Console.ReadLine();
+
+            string dataFine = $"{fineGiorno}/{fineMese}/{fineAnno}";
+
+            Prestito prestito = new Prestito(clienteRichiedente, ammontarePrestito, rataPrestito, dataInizio, dataFine);
+
+            return prestito;
+
+        }
+
+
     }
 }

@@ -30,3 +30,33 @@
 //visualizzare per ogni cliente, la situazione dei suoi prestiti in formato tabellare.
 using csharp_banca_oop;
 
+Banca banca = new Banca("BNL");
+
+//   liste
+
+banca.clienti.Add(new Cliente("Michele", "Dantino", "MCD20FSFS1845", 340000));
+banca.clienti.Add(new Cliente("Orazio", "Bertolami", "EI76LDVLO57325", 35000));
+
+
+Cliente cliente = Banca.CreaCliente();
+
+banca.AggiungiNuovoCliente(cliente);
+
+//Scorri lista clienti
+
+banca.ListaClienti();
+
+
+
+
+// Aggiungere un nuovo cliente
+
+Cliente userCliente = Banca.CreaCliente();
+
+banca.AggiungiNuovoCliente(cliente);
+
+//Scorri lista clienti
+
+banca.ListaClienti();
+
+
