@@ -8,97 +8,67 @@ namespace csharp_banca_oop
 {
     public class Banca
     {
-        string Nome { get; set; }
+        public string Nome { get; set; }
 
-        public List<Cliente> clienti;
-        List<Prestito> prestiti;
+        static List<Cliente> clienti = new List<Cliente>();
 
-        public Banca(string nome)
-        {
-            this.Nome = nome;
-            this.clienti = new List<Cliente>();
-            this.prestiti = new List<Prestito>();
-        }
-
+        static List<Prestito> prestiti = new List<Prestito>();
 
 
 
 
         // metodo creazione cliente
-        public static Cliente CreaCliente()
+        // aggiungere cliente
+        public static void aggiungiCliente()
         {
-            Console.WriteLine("\n*** Creazione di un nuovo Cliente ***\n");
+            Console.WriteLine("\n* Aggiungi Cliente *\n");
+            Cliente cliente = creaCliente();
+            Console.WriteLine(cliente.toString());
+            clienti.Add(cliente);
+        }
 
-            // caratterizzo il cliente
-
-            Console.Write("Inserire nome: ");
+        // modificare cliente
+        public static void modificaCliente(Cliente vecchioCliente)
+        {
+            Console.WriteLine("\n* Modifica cliente *\n");
+            Cliente cliente = creaCliente();
+            clienti.Remove(vecchioCliente);
+            clienti.Add(cliente);
+            Console.WriteLine(cliente.toString());
+        }
+        private static Cliente creaCliente()
+        {
+            Console.Write("Nome: ");
             string nome = Console.ReadLine();
 
-            Console.Write("Inserire cognome: ");
+            Console.Write("Cognome: ");
             string cognome = Console.ReadLine();
 
-            Console.Write("Inserire codice fiscale: ");
+            Console.Write("Codice Fiscale: ");
             string codiceFiscale = Console.ReadLine();
 
-            Console.Write("Inserire stipendio annuo: ");
-            int stipendio = Int32.Parse(Console.ReadLine());
+            Console.Write("Stipendio: ");
+            uint stipendio = Convert.ToUInt32(Console.ReadLine());
 
             Cliente cliente = new Cliente(nome, cognome, codiceFiscale, stipendio);
 
             return cliente;
         }
-        public void AggiungiNuovoCliente(Cliente cliente)
+
+        // ricercare cliente
+        public static Cliente cercaCliente(String codiceFiscale)
         {
-            // salvo il cliente nella lista clienti
-            clienti.Add(cliente);
-
-        }
-        public static Cliente ModificaCliente()
-        {
-            Console.WriteLine("\n*** Modifica Cliente ***\n");
-
-            // caratterizzo il cliente
-
-            Console.Write("Inserire stipendio annuo: ");
-            int stipendio = Int32.Parse(Console.ReadLine());
-
-            Cliente cliente = new Cliente(stipendio);
-
-            return cliente;
-        }
-
-        //lista clienti
-        public void ListaClienti()
-        {
-            Console.WriteLine();
-            Console.WriteLine("\n*** Lista Clienti ***\n");
-
             foreach (Cliente cliente in clienti)
             {
-                Console.WriteLine(cliente.GetInformazioniCliente() + "\n");
-            }
-        }
-
-        public Cliente GetCliente(int indiceCliente)
-        {
-            indiceCliente--;
-            if (indiceCliente < 0 || indiceCliente >= clienti.Count())
-            {
-                Console.WriteLine("Mi dispiace: Il cliente selezionato non esiste!");
-                return null;
+                if (cliente.codiceFiscale == codiceFiscale)
+                {
+                    return cliente;
+                }
             }
 
-            return clienti[indiceCliente];
+            return null;
         }
 
-        public Cliente ModificaInformazioniCliente(Cliente clienteDaModificare)
-        {
-            Cliente modificheCliente = Banca.ModificaCliente();
-
-            clienteDaModificare.Stipendio = modificheCliente.Stipendio;
-
-            return clienteDaModificare;
-        }
 
     }
 }
