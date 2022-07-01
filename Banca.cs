@@ -8,67 +8,102 @@ namespace csharp_banca_oop
 {
     public class Banca
     {
-        public string Nome { get; set; }
+        string Nome { get; set; }
 
-        static List<Cliente> clienti = new List<Cliente>();
+        public List<Cliente> clienti;
+        List<Prestito> prestiti;
 
-        static List<Prestito> prestiti = new List<Prestito>();
+        public Banca(string nome)
+        {
+            this.Nome = nome;
+            this.clienti = new List<Cliente>();
+            this.prestiti = new List<Prestito>();
+        }
 
-
-
+        //***** metodi istanza cliente *****
 
         // metodo creazione cliente
-        // aggiungere cliente
-        public static void aggiungiCliente()
+        public static Cliente CreaCliente()
         {
-            Console.WriteLine("\n* Aggiungi Cliente *\n");
-            Cliente cliente = creaCliente();
-            Console.WriteLine(cliente.toString());
-            clienti.Add(cliente);
-        }
+            Console.WriteLine("\n*** Creazione un nuovo Cliente ***\n");
 
-        // modificare cliente
-        public static void modificaCliente(Cliente vecchioCliente)
-        {
-            Console.WriteLine("\n* Modifica cliente *\n");
-            Cliente cliente = creaCliente();
-            clienti.Remove(vecchioCliente);
-            clienti.Add(cliente);
-            Console.WriteLine(cliente.toString());
-        }
-        private static Cliente creaCliente()
-        {
-            Console.Write("Nome: ");
+            // caratterizzo il cliente
+
+            Console.Write("Inserire il nome: ");
             string nome = Console.ReadLine();
 
-            Console.Write("Cognome: ");
+            Console.Write("Inserire il cognome: ");
             string cognome = Console.ReadLine();
 
-            Console.Write("Codice Fiscale: ");
+            Console.Write("Inserire il codice fiscale: ");
             string codiceFiscale = Console.ReadLine();
 
-            Console.Write("Stipendio: ");
-            uint stipendio = Convert.ToUInt32(Console.ReadLine());
+            Console.Write("Inserire lo stipendio annuo: ");
+            int stipendio = Int32.Parse(Console.ReadLine());
 
             Cliente cliente = new Cliente(nome, cognome, codiceFiscale, stipendio);
 
             return cliente;
         }
 
-        // ricercare cliente
-        public static Cliente cercaCliente(String codiceFiscale)
-        {
-            foreach (Cliente cliente in clienti)
-            {
-                if (cliente.codiceFiscale == codiceFiscale)
-                {
-                    return cliente;
-                }
-            }
+        // metodo modifica informazioni cliente
 
-            return null;
+        public static Cliente ModificaCliente()
+        {
+            Console.WriteLine("\n*** Modifica Cliente ***\n");
+
+            // caratterizzo il cliente
+
+            Console.Write("Inserire lo stipendio annuo: ");
+            int stipendio = Int32.Parse(Console.ReadLine());
+
+            Cliente cliente = new Cliente(stipendio);
+
+            return cliente;
         }
 
 
+
+
+        // salvo il cliente nella lista clienti
+        public void AggiungiNuovoCliente(Cliente cliente)
+        {
+            clienti.Add(cliente);
+        }
+
+        public void ListaClienti()
+        {
+            Console.WriteLine();
+            Console.WriteLine("\n*** Lista Clienti ***\n");
+
+            foreach (Cliente cliente in clienti)
+            {
+                Console.WriteLine(cliente.GetInfoCliente() + "\n");
+            }
+        }
+
+        public Cliente GetCliente(int IndCliente)
+        {
+            IndCliente--;
+            if (IndCliente < 0 || IndCliente >= clienti.Count())
+            {
+                Console.WriteLine("Mi dispiace: Il cliente selezionato non esiste!");
+                return null;
+            }
+
+            return clienti[IndCliente];
+        }
+
+        public Cliente ModificaInformazioniCliente(Cliente clienteDaModificare)
+        {
+            Cliente modificheCliente = Banca.ModificaCliente();
+
+            clienteDaModificare.Stipendio = modificheCliente.Stipendio;
+
+            return clienteDaModificare;
+        }
+        //***** fine metodi 'istanza cliente *****
+
+        
     }
 }

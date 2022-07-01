@@ -8,20 +8,16 @@ namespace csharp_banca_oop
 {
     public class Cliente
     {
-
         string Nome { get; set; }
 
         string Cognome { get; set; }
 
         string CodiceFiscale { get; set; }
 
-        public uint Stipendio { get; set; }
+        public int Stipendio { get; set; }
 
-        public List<Prestito> prestiti = new List<Prestito>();
-        internal string codiceFiscale;
-
-        // Costruttore per la creazione dell'istanza creazione
-        public Cliente(string nome, string cognome, string codiceFiscale, uint stipendio)
+        // Costruttore per istanza creazione
+        public Cliente(string nome, string cognome, string codiceFiscale, int stipendio)
         {
             this.Nome = nome;
             this.Cognome = cognome;
@@ -29,22 +25,18 @@ namespace csharp_banca_oop
             this.Stipendio = stipendio;
         }
 
-        internal void Add(Cliente cliente)
-        {
-            throw new NotImplementedException();
-        }
+        // Costruttore per  modifica istanza
 
-        public Cliente(uint stipendio)
+        public Cliente(int stipendio)
         {
             this.Stipendio = stipendio;
         }
 
 
-        public string toString()
+        public string GetInfoCliente()
         {
             return $"***Cliente***\nNome: {Nome}\nCognome: {Cognome}\nCodice fiscale: {CodiceFiscale}\nStipendio: {Stipendio}";
         }
-
 
     }
 }
