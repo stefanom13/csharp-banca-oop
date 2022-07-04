@@ -8,25 +8,26 @@ namespace csharp_banca_oop
 {
     public class Prestito
     {
-        Cliente UserCliente;
-        static int codId = 0;
-        int Ammontare { get; set; }
+        public Cliente userCliente;
+        private int codId;
+        public int Ammontare { get; private set; }
         int Rata { get; set; }
-        string dataInizio { get; set; }
-        string dataFine { get; set; }
+        public string dataInizio { get; set; }
+        public string dataFine { get; set; }
 
-        public Prestito(Cliente intestatario, int ammontare, int rata, string dataInizio, string dataFine)
+        public Prestito(Cliente userCliente, int ammontare, int rata, string dataInizio, string dataFine)
         {
-            this.UserCliente = UserCliente;
+            this.userCliente = userCliente;
             this.Ammontare = ammontare;
             this.Rata = rata;
             this.dataInizio = dataInizio;
             this.dataFine = dataFine;
+            
         }
 
         public string GetInformazioniPrestito()
         {
-            return $"***Prestito***\nInformazioni Cliente:{UserCliente.GetInfoCliente()}\n\nAmmontare prestito: {Ammontare}\nRata prestito : {Rata}\nData inizio:{dataInizio} e data fine {dataFine}\n\n";
+            return $"***Prestito***\nInformazioni Cliente:{userCliente.GetInfoCliente()}\n\nAmmontare prestito: {Ammontare}\nRata prestito : {Rata}\nData inizio:{dataInizio} e data fine {dataFine}\n\n";
         }
     }
 }

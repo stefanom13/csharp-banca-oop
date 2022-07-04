@@ -36,6 +36,13 @@ Banca banca = new Banca("BNL");
 
 banca.clienti.Add(new Cliente("Michele", "Dantino", "MCD20FSFS1845", 340000));
 banca.clienti.Add(new Cliente("Orazio", "Bertolami", "EI76LDVLO57325", 35000));
+banca.clienti.Add(new Cliente("Luca", "Eugregi", "AOMSOEHT67822", 32000));
+banca.clienti.Add(new Cliente("Enzo", "Priamo", "LIBIDI54321", 72000));
+
+//aggiunta prestiti
+
+banca.prestiti.Add(new Prestito(banca.clienti[0], 40000, 200, "12/04/2016", "12/07/2022"));
+banca.prestiti.Add(new Prestito(banca.clienti[1], 30000, 200, "12/04/2021", "07/08/2032"));
 
 
 // Aggiungere un nuovo cliente
@@ -52,10 +59,15 @@ banca.ListaClienti();
 Console.Write("Inserire indiceCliente:");
 int indCliente = Int32.Parse(Console.ReadLine());
 
-Cliente clienteCercato = banca.GetCliente(indCliente);
+//Cliente clienteCercato = banca.GetCliente(indCliente);
 
-Console.WriteLine(clienteCercato.GetInfoCliente());
+//Console.WriteLine(clienteCercato.GetInfoCliente());
 
+//Prestito prestito = banca.CreaPrestito();
+//banca.InserisciPrestito(prestito);
+//Console.WriteLine(prestito.GetInformazioniPrestito());
+//Console.WriteLine();
+//banca.ListaPrestiti();
 
 
 

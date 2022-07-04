@@ -12,9 +12,30 @@ namespace csharp_banca_oop
 
         string Cognome { get; set; }
 
-        string CodiceFiscale { get; set; }
+        public string CodiceFiscale { get; protected set; }
 
         public int Stipendio { get; set; }
+
+        static int matrice = 0;
+
+        private string id;
+
+        public string Id
+        {
+            get
+            {
+                return id;
+            }
+            set
+            {
+
+                while (id.Length < 8)
+                {
+                    this.id += "0" + id;
+                }
+
+            }
+        }
 
         // Costruttore per istanza creazione
         public Cliente(string nome, string cognome, string codiceFiscale, int stipendio)
@@ -23,6 +44,8 @@ namespace csharp_banca_oop
             this.Cognome = cognome;
             this.CodiceFiscale = codiceFiscale;
             this.Stipendio = stipendio;
+            Cliente.matrice++;
+            this.id = Cliente.matrice.ToString();
         }
 
         // Costruttore per  modifica istanza

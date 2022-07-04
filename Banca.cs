@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace csharp_banca_oop
 {
-    public class Banca
+    internal class Banca
     {
         string Nome { get; set; }
 
         public List<Cliente> clienti;
-        List<Prestito> prestiti;
+        public List<Prestito> prestiti;
 
         public Banca(string nome)
         {
@@ -20,14 +20,12 @@ namespace csharp_banca_oop
             this.prestiti = new List<Prestito>();
         }
 
-        //***** metodi istanza cliente *****
+        // metodi istanza cliente
 
         // metodo creazione cliente
         public static Cliente CreaCliente()
         {
             Console.WriteLine("\n*** Creazione un nuovo Cliente ***\n");
-
-            // caratterizzo il cliente
 
             Console.Write("Inserire il nome: ");
             string nome = Console.ReadLine();
@@ -119,30 +117,99 @@ namespace csharp_banca_oop
             Console.Write("Inserire le rate del prestito: ");
             int rataPrestito = Int32.Parse(Console.ReadLine());
 
-
-            Console.WriteLine("\n\n*** Data inizio prestito ***\n");
-
             string dataInizio = DateTime.Today.ToShortDateString();
+            DateTime dateTime = DateTime.Parse(dataInizio);
+            Console.WriteLine("\n\n*** Data inizio prestito: {0}***\n", dataInizio);
 
-            Console.WriteLine(dataInizio);
+            //calcolo data fine prestito
+            double tempo = ammontarePrestito / rataPrestito;
+            int ratePrestito = (int)Math.Round(tempo, 0);
 
-            Console.WriteLine("*** Data fine prestito ***\n\n");
+            DateTime dataFinale = dateTime.AddMonths(ratePrestito);
+            string dataFine = Convert.ToString(dataFinale);
+            Console.WriteLine("\n\n*** Data fine prestito: {0}***\n", dataFine);
 
-            Console.Write("Inserire il giorno: ");
-            string fineGiorno = Console.ReadLine();
+            Console.Write("Inserire prestito 'y' o 'n' -->");
+            string validatore = Console.ReadLine();
+            Console.Clear();
+            if (validatore == "y")
+            {
+                Prestito prestito = new Prestito(clienteRichiedente, ammontarePrestito, rataPrestito, dataInizio, dataFine);
 
-            Console.Write("Inserire il mese: ");
-            string fineMese = Console.ReadLine();
+                Console.WriteLine("Il prestito è stato concesso");
+                return prestito;
+            }
 
-            Console.Write("Inserire l'anno: ");
-            string fineAnno = Console.ReadLine();
+            return null;
 
-            string dataFine = $"{fineGiorno}/{fineMese}/{fineAnno}";
+        }
+        //inserimento prestito
+        public void InserisciPrestito(Prestito prestito)
+        {
+            this.prestiti.Add(prestito);
+        }
 
-            Prestito prestito = new Prestito(clienteRichiedente, ammontarePrestito, rataPrestito, dataInizio, dataFine);
+        //lista prestiti
+        public void ListaPrestiti()
+        {
+            Console.WriteLine();
+            Console.WriteLine("\n*** Lista Prestiti ***\n");
 
-            return prestito;
+            foreach (Prestito prestito in prestiti)
+            {
+                Console.WriteLine(prestito.GetInformazioniPrestito() + "\n");
+            }
+        }
 
+        public void GetPrestito(string codiceFiscale)
+        {
+            int sommaPrestiti = 0;
+            List<Prestito> prestitiCliente = new List<Prestito>();
+
+            //ciclo array contenente tutti i prestiti dei clienti
+
+            foreach (Prestito prestito in prestiti)
+            {
+
+                if (codiceFiscale == prestito.userCliente.CodiceFiscale)
+                {
+
+                    prestitiCliente.Add(prestito);
+
+                }
+            }
+            foreach (Prestito prestito in prestitiCliente)
+            {
+
+                Console.WriteLine("{0}\nRate del prestito rimanenti: {1}\n", prestito.GetInformazioniPrestito(), this.GetRateRimanenti(prestito));
+
+            }
+
+            foreach (Prestito prestito in prestitiCliente)
+            {
+                sommaPrestiti += prestito.Ammontare;
+
+            }
+            Console.WriteLine("\n****La somma totale dei prestiti è: {0} euro****", sommaPrestiti);
+        }
+
+        public int GetRateRimanenti(Prestito prestito)
+        {
+            string tempDate = DateTime.Today.ToShortDateString();
+            DateTime dataAttuale = DateTime.Parse(tempDate);
+            DateTime dataFinale = DateTime.Parse(prestito.dataFine);
+
+            int rateRestanti = -12 * (dataAttuale.Year - dataFinale.Year) + dataAttuale.Month - dataFinale.Month;
+
+            return rateRestanti;
+        }
+
+        public void ProspettoPrestiti(List<Prestito> prestiti)
+        {
+            foreach (Prestito prestito in prestiti)
+            {
+                Console.Write(prestito.GetInformazioniPrestito());
+            }
         }
 
 
