@@ -9,6 +9,9 @@ namespace csharp_banca_oop
     public class Prestito
     {
         public Cliente userCliente;
+        
+        static int matrice = 0;
+
         private int codId;
         public int Ammontare { get; private set; }
         int Rata { get; set; }
@@ -22,7 +25,9 @@ namespace csharp_banca_oop
             this.Rata = rata;
             this.dataInizio = dataInizio;
             this.dataFine = dataFine;
-            
+            Prestito.matrice++;
+            this.codId = Prestito.matrice;
+
         }
 
         public string GetInformazioniPrestito()
